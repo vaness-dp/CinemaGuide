@@ -1,0 +1,29 @@
+.footer {
+	@apply py-10 mt-[120px];
+
+	.copyright {
+		@apply flex items-center justify-center;
+
+		> span {
+			@apply first:mr-3 first:text-lg first:leading-6 first:font-bold last:text-lg last:leading-6 last:text-white/40;
+
+			> svg {
+				@apply mr-3;
+			}
+		}
+	}
+
+	.socials {
+		> ul {
+			@apply flex items-center;
+
+			> li > a > svg {
+				@apply text-[#ffffffcc] hover:text-white/50 w-9 h-9 transition-colors;
+			}
+
+			> li:not(:last-child) {
+				@apply mr-6;
+			}
+		}
+	}
+}

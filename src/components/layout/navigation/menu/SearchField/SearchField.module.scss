@@ -1,0 +1,10 @@
+.field {
+	@apply relative mr-80;
+	> input {
+		@apply py-3 pl-[52px] bg-gray-700 text-lg leading-6 text-white/50 rounded-lg min-w-[559px] border-transparent;
+	}
+
+	> span {
+		@apply absolute left-4 top-3;
+	}
+}
