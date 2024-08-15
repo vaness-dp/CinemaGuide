@@ -1,0 +1,52 @@
+.hero {
+	@apply relative z-10;
+	margin-bottom: 43px;
+
+	.wrapper {
+		@apply flex-col items-start;
+	}
+}
+
+.details {
+	@apply flex items-center mb-4;
+
+	> div {
+		@apply flex items-center mr-4 py-1 px-4 border rounded-2xl border-transparent text-lg leading-6 font-bold;
+
+		> svg {
+			@apply w-4 h-4 mr-1;
+		}
+	}
+
+	> span {
+		@apply text-lg leading-6 text-white/40 mr-4 last:mr-0;
+	}
+}
+
+.description {
+	@apply flex flex-col mb-[60px];
+
+	> h1 {
+		@apply text-5xl mb-4 leading-[56px] font-bold max-w-[600px];
+	}
+
+	> p {
+		@apply text-2xl leading-8 max-w-[600px] text-white/40;
+	}
+}
+
+.buttons {
+	@apply flex items-center;
+
+	> button {
+		@apply mr-4 last:mr-0;
+	}
+
+	.refresh .heart > svg {
+		@apply w-6 h-6;
+	}
+}
+
+.heart:active svg path {
+	@apply stroke-indigo-200 fill-indigo-200 transition-colors;
+}

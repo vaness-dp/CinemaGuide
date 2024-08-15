@@ -1,0 +1,40 @@
+.content {
+	@apply flex flex-col items-start;
+
+	> h1 {
+		@apply text-[40px] leading-[48px] font-bold mb-[64px];
+	}
+
+	> ul {
+		@apply grid;
+		grid-template-columns: repeat(5, 1fr);
+		gap: 64px 40px;
+
+		> li {
+			@apply relative;
+			min-width: 224px;
+			min-height: 336px;
+			border: 1px solid #ffffff40;
+			border-radius: 15px;
+
+			> div {
+				@apply absolute top-0 left-0 right-0 bottom-0 overflow-hidden;
+				border-radius: 15px;
+				box-shadow: 0px 0px 80px 0px #ffffff54;
+
+				> img {
+					@apply block object-cover;
+					min-width: 224px;
+					min-height: 336px;
+					border-radius: 15px;
+				}
+			}
+
+			> span {
+				@apply absolute -top-4 -left-2 py-2 px-6 bg-white text-2xl leading-8 font-bold;
+				border-radius: 50px;
+				color: #6a5dc2;
+			}
+		}
+	}
+}

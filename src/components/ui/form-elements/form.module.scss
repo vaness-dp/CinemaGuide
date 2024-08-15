@@ -1,0 +1,13 @@
+.field {
+	@apply mb-3;
+	> label {
+		@apply relative flex items-center justify-center;
+		> svg {
+			@apply absolute top-4 left-3 fill-black/40;
+		}
+	}
+}
+
+input {
+	@apply rounded-lg p-4 pl-[45px] text-lg leading-6 text-black/40 bg-white border-black/40 border min-w-[340px];
+}
