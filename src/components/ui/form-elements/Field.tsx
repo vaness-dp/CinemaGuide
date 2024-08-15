@@ -1,3 +1,4 @@
+import cn from 'clsx'
 import { forwardRef } from 'react'
 
 import { MaterialIcon } from '../icons/MaterialIcon'
@@ -11,9 +12,14 @@ const Field = forwardRef<HTMLInputElement, IField>(
 			<div className={styles.field} style={style}>
 				<label>
 					<MaterialIcon name={icon} />
-					<input ref={ref} type={type} placeholder={placeholder} {...rest} />
+					<input
+						className={cn({ [styles['field-error']]: error })}
+						ref={ref}
+						type={type}
+						placeholder={placeholder}
+						{...rest}
+					/>
 				</label>
-				{error && <div className={styles.error}>{String(error.message)}</div>}
 			</div>
 		)
 	}

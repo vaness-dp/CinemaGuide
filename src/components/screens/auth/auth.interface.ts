@@ -7,4 +7,6 @@ export interface IAuthForm {
 	password: string
 	name?: string
 	surname?: string
+	confirmPassword?: string
+	values?: string
 }

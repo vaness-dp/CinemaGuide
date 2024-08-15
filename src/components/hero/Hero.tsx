@@ -1,3 +1,5 @@
+'use client'
+
 import cn from 'clsx'
 
 import { useRandomMovie } from '@/hooks/useRandomMovie'

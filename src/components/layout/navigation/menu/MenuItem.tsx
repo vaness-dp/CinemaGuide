@@ -1,17 +1,23 @@
-import { NavLink } from 'react-router-dom'
+'use client'
+
+import cn from 'clsx'
+import Link from 'next/link'
+import { usePathname } from 'next/navigation'
+
 import { IMenuItem } from './menu.interface'
 
 export function MenuItem({ item }: { item: IMenuItem }) {
+	const pathname = usePathname()
+	const isActive = pathname === item.link
+
 	return (
 		<li>
-			<NavLink
-				to={item.link}
-				className={({ isActive }) =>
-					isActive ? 'menu-item link-underline mr-10' : 'menu-item mr-10'
-				}
+			<Link
+				href={item.link}
+				className={cn('menu-item mr-10', { 'link-underline': isActive })}
 			>
 				{item.title}
-			</NavLink>
+			</Link>
 		</li>
 	)
 }

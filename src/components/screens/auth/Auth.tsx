@@ -1,5 +1,8 @@
+'use client'
+
+import { useRouter } from 'next/navigation'
+import { useState } from 'react'
 import ReactDOM from 'react-dom'
-import { useNavigate } from 'react-router-dom'
 
 import { Logo } from '@/components/layout/navigation/Logo'
 import { AuthFields } from '@/components/shared/user/AuthFields'
@@ -8,20 +11,17 @@ import Field from '@/components/ui/form-elements/Field'
 import { LoginButton } from '@/components/ui/form-elements/LoginButton'
 import { RegisterButton } from '@/components/ui/form-elements/RegisterButton'
 
-import { useAuthContext } from '@/providers/AuthProvider/AuthProvider'
-
 import styles from './Auth.module.scss'
 import { IAuth } from './auth.interface'
-import { useLogin, useRegister } from './useAuth'
+import { useAuth } from './useAuth'
 
 export function Auth({ onClose }: IAuth) {
-	const { isAuth, setIsAuth } = useAuthContext()
-	const navigate = useNavigate()
+	const [isAuth, setIsAuth] = useState(false)
+	const router = useRouter()
 
 	const handleSuccess = (data: any) => {
 		console.log('Success:', data)
-		setIsAuth(true)
-		navigate('/profile')
+		router.push('/profile')
 	}
 
 	const handleError = (error: any) => {
@@ -29,12 +29,15 @@ export function Auth({ onClose }: IAuth) {
 		alert('Что-то пошло не так!')
 	}
 
-	const { register, handleSubmit, formState } = isAuth
-		? useRegister(handleSuccess, handleError)
-		: useLogin(handleSuccess, handleError)
+	const { register, handleSubmit, formState, reset, getValues } = useAuth(
+		isAuth,
+		handleSuccess,
+		handleError
+	)
 
 	const toggleForm = () => {
 		setIsAuth((prev) => !prev)
+		reset() // Сбрасываем поля формы при переключении состояния
 	}
 
 	return ReactDOM.createPortal(
@@ -50,23 +53,26 @@ export function Auth({ onClose }: IAuth) {
 						isPasswordRequired={!isAuth}
 					/>
 
+					{/* Если isAuth true, показываем дополнительные поля */}
 					{isAuth && (
 						<>
 							<Field
-								{...register('name', { required: 'Name is required!' })}
+								{...register('name', { required: true })}
 								placeholder="Name"
 								icon="MdPerson"
 								error={formState.errors?.name}
 							/>
 							<Field
-								{...register('surname', { required: 'Surname is required!' })}
+								{...register('surname', { required: true })}
 								placeholder="Surname"
 								icon="MdPerson"
 								error={formState.errors?.surname}
 							/>
 							<Field
 								{...register('confirmPassword', {
-									required: 'Confirm your password!',
+									required: true,
+									validate: (value) =>
+										value === getValues('password') || 'Passwords do not match',
 								})}
 								placeholder="Confirm Password"
 								icon="MdLock"

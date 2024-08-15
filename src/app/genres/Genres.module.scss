@@ -1,0 +1,27 @@
+.genres {
+	> div > ul {
+		@apply grid;
+
+		grid-template-columns: repeat(4, 1fr);
+		grid-gap: 64px 40px;
+
+		> li {
+			@apply flex flex-col items-center border rounded-3xl;
+			box-shadow: 0px 0px 80px 0px #ffffff54;
+			border-color: #ffffff40;
+			min-width: 290px;
+			min-height: 304px;
+		}
+	}
+
+	.heading {
+		@apply font-bold text-5xl leading-[56px] mb-16;
+	}
+
+	.top {
+	}
+
+	.bottom {
+		@apply flex flex-col-reverse min-h-[84px];
+	}
+}
