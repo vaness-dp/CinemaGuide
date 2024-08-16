@@ -1,0 +1,14 @@
+.profile {
+}
+
+.links {
+	@apply flex;
+
+	> button {
+		@apply flex items-center justify-center menu-item mr-16 last:mr-0;
+
+		> svg {
+			@apply mr-2;
+		}
+	}
+}

@@ -1,5 +1,5 @@
 import { Profile } from './Profile'
 
-export default function PageProfile() {
+export default function ProfilePage() {
 	return <Profile />
 }

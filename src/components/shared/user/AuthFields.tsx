@@ -26,6 +26,7 @@ export function AuthFields({
 					},
 				})}
 				placeholder="E-mail"
+				type="email"
 				icon="MdEmail"
 				error={errors.email}
 			/>

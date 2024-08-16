@@ -7,7 +7,7 @@
 		@apply relative inline-block;
 
 		&::after {
-			@apply absolute left-0 bottom-0 w-full h-[1px];
+			@apply absolute left-0 -bottom-1 w-full h-[2px];
 			content: '';
 			background-color: #dc5dfc;
 			/* transform: scaleX(0);
