@@ -1,12 +1,14 @@
+import { CSSProperties } from 'react'
+
 import { MaterialIcon } from '@/components/ui/icons/MaterialIcon'
 
 import styles from './Footer.module.scss'
 import { BootstrapIcon } from './socials/BootstrapIcon'
 import { socialsData } from './socials/socials.data'
 
-export function Footer() {
+export function Footer({ style }: { style: CSSProperties }) {
 	return (
-		<footer className={styles.footer}>
+		<footer className={styles.footer} style={style}>
 			<div className="container flex justify-between">
 				<div className={styles.copyright}>
 					<span>LLC "Multimedia Vision"</span>

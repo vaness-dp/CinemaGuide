@@ -11,11 +11,14 @@ import Field from '@/components/ui/form-elements/Field'
 import { LoginButton } from '@/components/ui/form-elements/LoginButton'
 import { RegisterButton } from '@/components/ui/form-elements/RegisterButton'
 
-import styles from './Auth.module.scss'
-import { IAuth } from './auth.interface'
-import { useAuth } from './useAuth'
+import { useAuth } from '@/hooks/useAuth'
 
-export function Auth({ onClose }: IAuth) {
+import { validEmail } from '@/shared/regex'
+
+import styles from './AuthModal.module.scss'
+import { IAuthModal } from './auth.interface'
+
+export function AuthModal({ onClose, isPasswordRequired = true }: IAuthModal) {
 	const [isAuth, setIsAuth] = useState(false)
 	const router = useRouter()
 
@@ -37,7 +40,7 @@ export function Auth({ onClose }: IAuth) {
 
 	const toggleForm = () => {
 		setIsAuth((prev) => !prev)
-		reset() // Сбрасываем поля формы при переключении состояния
+		reset()
 	}
 
 	return ReactDOM.createPortal(
@@ -47,15 +50,29 @@ export function Auth({ onClose }: IAuth) {
 					style={{ marginBottom: '40px', width: '180px', height: '24px' }}
 				/>
 				<form className="flex flex-col" onSubmit={handleSubmit}>
-					<AuthFields
-						register={register}
-						formState={formState}
-						isPasswordRequired={!isAuth}
-					/>
-
-					{/* Если isAuth true, показываем дополнительные поля */}
-					{isAuth && (
+					{!isAuth ? (
 						<>
+							<AuthFields
+								register={register}
+								formState={formState}
+								isPasswordRequired={!isAuth}
+							/>
+						</>
+					) : (
+						<>
+							<Field
+								{...register('email', {
+									required: 'Email is required!',
+									pattern: {
+										value: validEmail,
+										message: 'Please enter a valid email',
+									},
+								})}
+								placeholder="E-mail"
+								type="email"
+								icon="MdEmail"
+								error={formState.errors?.email}
+							/>
 							<Field
 								{...register('name', { required: true })}
 								placeholder="Name"
@@ -67,6 +84,24 @@ export function Auth({ onClose }: IAuth) {
 								placeholder="Surname"
 								icon="MdPerson"
 								error={formState.errors?.surname}
+							/>
+							<Field
+								{...register(
+									'password',
+									isPasswordRequired
+										? {
+												required: 'Password is required!',
+												minLength: {
+													value: 6,
+													message: 'Min length should more 6 symbols!',
+												},
+											}
+										: {}
+								)}
+								placeholder="Password"
+								type="password"
+								icon="MdPassword"
+								error={formState.errors?.password}
 							/>
 							<Field
 								{...register('confirmPassword', {
@@ -81,7 +116,6 @@ export function Auth({ onClose }: IAuth) {
 							/>
 						</>
 					)}
-
 					<LoginButton
 						type="submit"
 						className="btn-primary"
@@ -89,7 +123,6 @@ export function Auth({ onClose }: IAuth) {
 					>
 						{isAuth ? 'Register' : 'Login'}
 					</LoginButton>
-
 					<RegisterButton isAuth={isAuth} onClick={toggleForm} />
 				</form>
 				<CloseButton onClose={onClose} />

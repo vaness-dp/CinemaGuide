@@ -1,14 +1,25 @@
 .profile {
+	@apply h-auto;
 }
 
-.links {
+.tabs {
 	@apply flex;
 
 	> button {
-		@apply flex items-center justify-center menu-item mr-16 last:mr-0;
+		@apply flex items-center justify-center menu-item mr-16 mb-16 last:mr-0;
 
 		> svg {
 			@apply mr-2;
+		}
+	}
+}
+
+.settings {
+	> div {
+		@apply flex flex-col text-lg leading-6;
+
+		> span {
+			@apply text-2xl leading-8 font-bold;
 		}
 	}
 }

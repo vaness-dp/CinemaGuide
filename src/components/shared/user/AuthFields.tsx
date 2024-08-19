@@ -4,7 +4,7 @@ import Field from '@/components/ui/form-elements/Field'
 
 import { validEmail } from '@/shared/regex'
 
-interface IAuthFields {
+export interface IAuthFields {
 	register: UseFormRegister<any>
 	formState: FormState<any>
 	isPasswordRequired?: boolean

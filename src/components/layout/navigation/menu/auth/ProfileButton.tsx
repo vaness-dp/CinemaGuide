@@ -1,9 +1,9 @@
 import { IButton } from './button.types'
 
-export function LoginButton({ onClick }: IButton) {
+export function ProfileButton({ onClick, children }: IButton) {
 	return (
 		<button className="menu-item py-2" onClick={onClick}>
-			Login
+			{children}
 		</button>
 	)
 }

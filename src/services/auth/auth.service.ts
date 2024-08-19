@@ -1,10 +1,11 @@
+import { axiosClassic } from 'api/api.helpers'
 import axios from 'axios'
 
-import { API_URL } from '@/configs/constants'
+import { IUser } from '@/shared/types/user.types'
 
-import { getContentType } from '../../configs/constants'
+import { API_URL, getContentType } from '@/configs/constants'
 
-export const AuthService = {
+class AuthService {
 	async login(email: string, password: string) {
 		return axios.post(
 			`${API_URL}/auth/login`,
@@ -14,7 +15,7 @@ export const AuthService = {
 				withCredentials: true,
 			}
 		)
-	},
+	}
 
 	async register(
 		email: string,
@@ -30,17 +31,15 @@ export const AuthService = {
 				withCredentials: true,
 			}
 		)
-	},
+	}
 
 	async logout() {
-		return axios.get(`${API_URL}/auth/logout`, {
-			withCredentials: true,
-		})
-	},
+		return axiosClassic.get<boolean>('/auth/logout')
+	}
 
-	async getProfile() {
-		return axios.get(`${API_URL}/profile`, {
-			withCredentials: true,
-		})
-	},
+	async profile() {
+		return axiosClassic.get<IUser>(`/profile`)
+	}
 }
+
+export default new AuthService()
