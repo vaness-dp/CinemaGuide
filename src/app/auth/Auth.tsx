@@ -1,6 +1,7 @@
 'use client'
 
 import { Button } from '@/app/auth/buttons/Button'
+import { CloseButton } from '@/app/auth/buttons/CloseButton'
 import { Field } from '@/app/auth/fields/Field'
 
 import { useAuth } from '@/hooks/useAuth'
@@ -79,6 +80,7 @@ export function Auth({ onClose }: { onClose: () => void }) {
 					{isLoginForm ? 'Register' : 'I have password'}
 				</Button>
 			</form>
+			<CloseButton onClick={onClose} />
 		</div>
 	)
 }

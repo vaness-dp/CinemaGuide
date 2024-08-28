@@ -40,11 +40,8 @@ export function Menu() {
 				) : (
 					<LoginButton onClick={() => setIsAuthModalOpen(true)} />
 				)}
-				<div className="z-20">
-					{isAuthModalOpen && (
-						<Auth onClose={() => setIsAuthModalOpen(false)} />
-					)}
-				</div>
+
+				{isAuthModalOpen && <Auth onClose={() => setIsAuthModalOpen(false)} />}
 			</ul>
 		</>
 	)
