@@ -117,6 +117,17 @@ module.exports = {
 					},
 				},
 
+				'.btn-switch': {
+					fontSize: '18px',
+					lineHeight: '24px',
+					fontWeight: '700',
+					color: 'black',
+					transition: 'color .3s ease-in-out',
+					'&:hover': {
+						color: '#00000066',
+					},
+				},
+
 				'.btn-icon': {
 					backgroundColor: '#393b3c',
 					padding: '16px 22px',

@@ -2,9 +2,9 @@
 
 import cn from 'clsx'
 
-import { useRandomMovie } from '@/hooks/useRandomMovie'
+import { Loader } from '@/ui/loader/Loader'
 
-import { Loader } from '../ui/loader/Loader'
+import { useRandomMovie } from '@/hooks/useRandomMovie'
 
 import styles from './Hero.module.scss'
 import { AboutButton } from './buttons/AboutButton'
@@ -25,7 +25,7 @@ export function Hero() {
 	if (error) return <p>Error loading movie: {error.message}</p>
 
 	return (
-		<section className={cn(styles.hero)}>
+		<section className={styles.hero}>
 			<div className={cn(styles.wrapper, 'container')}>
 				{movie ? (
 					<div className={styles.content}>

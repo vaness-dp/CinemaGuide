@@ -1,70 +1,61 @@
-import { useForm } from 'react-hook-form'
+import { useMutation } from '@tanstack/react-query'
+import { useRouter } from 'next/navigation'
+import { useState } from 'react'
+import { type SubmitHandler, useForm } from 'react-hook-form'
+import { toast } from 'sonner'
+
+import type { IAuthForm } from '@/shared/types/auth.types'
 
 import authService from '@/services/auth/auth.service'
 
-interface IAuthForm {
-	email: string
-	password: string
-	name?: string
-	surname?: string
-	confirmPassword?: string
-	values?: string
-}
+import { SITE_PAGES } from '@/configs/pages-url.config'
 
-export const useAuth = (
-	isAuth: boolean,
-	onSuccess: (data: any) => void,
-	onError: (error: any) => void
-) => {
-	const { register, handleSubmit, formState, setError, getValues, reset } =
-		useForm<IAuthForm>({
-			mode: 'onChange',
-		})
+export const useAuth = () => {
+	const { register, handleSubmit, reset } = useForm<IAuthForm>({
+		mode: 'onChange',
+	})
 
-	const onSubmit = async (data: IAuthForm) => {
-		if (isAuth) {
-			// Регистрация
-			if (!data.name || !data.surname) {
-				onError(new Error('Name and Surname are required for registration'))
-				return
-			}
+	const [isLoginForm, setIsLoginForm] = useState<boolean>(true)
 
-			if (data.password !== data.confirmPassword) {
-				setError('confirmPassword', {
-					type: 'manual',
-					message: 'Passwords do not match',
-				})
-				return
-			}
+	const { push } = useRouter()
 
-			try {
-				const response = await authService.register(
-					data.email,
-					data.password,
-					data.name,
-					data.surname
-				)
-				onSuccess(response.data)
-			} catch (error) {
-				onError(error)
+	const { mutate } = useMutation({
+		mutationKey: ['auth'],
+		mutationFn: (data: IAuthForm) =>
+			isLoginForm
+				? authService.login(data.email, data.password)
+				: authService.register(
+						data.email,
+						data.password,
+						data.name!,
+						data.surname!
+					),
+		onSuccess() {
+			toast.success(
+				isLoginForm ? 'Successfully logged in!' : 'Successfully registered!'
+			)
+			reset()
+			if (!isLoginForm) {
+				setIsLoginForm(true)
 			}
-		} else {
-			// Логин
-			try {
-				const response = await authService.login(data.email, data.password)
-				onSuccess(response.data)
-			} catch (error) {
-				onError(error)
-			}
-		}
+			push(SITE_PAGES.PROFILE)
+		},
+	})
+
+	const onSubmit: SubmitHandler<IAuthForm> = (data) => {
+		mutate(data)
+	}
+
+	const handleToggleForm = () => {
+		setIsLoginForm(!isLoginForm)
 		reset()
 	}
 
 	return {
 		register,
-		handleSubmit: handleSubmit(onSubmit),
-		formState,
-		reset,
-		getValues,
+		handleSubmit,
+		onSubmit,
+		handleToggleForm,
+		isLoginForm,
 	}
 }

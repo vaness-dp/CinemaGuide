@@ -6,7 +6,7 @@ import styles from './Footer.module.scss'
 import { BootstrapIcon } from './socials/BootstrapIcon'
 import { socialsData } from './socials/socials.data'
 
-export function Footer({ style }: { style: CSSProperties }) {
+export function Footer({ style }: { style?: CSSProperties }) {
 	return (
 		<footer className={styles.footer} style={style}>
 			<div className="container flex justify-between">

@@ -4,6 +4,8 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { PropsWithChildren } from 'react'
 
+import { AuthProvider } from './AuthProvider'
+
 export function MainProvider({ children }: PropsWithChildren) {
 	const queryClient = new QueryClient({
 		defaultOptions: {
@@ -15,7 +17,7 @@ export function MainProvider({ children }: PropsWithChildren) {
 
 	return (
 		<QueryClientProvider client={queryClient}>
-			{children}
+			<AuthProvider>{children}</AuthProvider>
 			<ReactQueryDevtools initialIsOpen={false} />
 		</QueryClientProvider>
 	)

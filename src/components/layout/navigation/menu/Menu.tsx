@@ -3,10 +3,11 @@
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 
-import { AuthModal } from '@/components/screens/auth/AuthModal'
-import { Loader } from '@/components/ui/loader/Loader'
+import { Auth } from '@/app/auth/Auth'
 
 import { useProfile } from '@/hooks/useProfile'
+
+import { SITE_PAGES } from '@/configs/pages-url.config'
 
 import styles from './Menu.module.scss'
 import { MenuItem } from './MenuItem'
@@ -31,18 +32,19 @@ export function Menu() {
 				<SearchFIeld />
 
 				{isLoading ? (
-					<Loader />
+					<LoginButton onClick={() => setIsAuthModalOpen(true)} />
 				) : data?.data ? (
-					<ProfileButton onClick={() => push('/profile')}>
+					<ProfileButton onClick={() => push(SITE_PAGES.PROFILE)}>
 						{data.data.name}
 					</ProfileButton>
 				) : (
 					<LoginButton onClick={() => setIsAuthModalOpen(true)} />
 				)}
-
-				{isAuthModalOpen && (
-					<AuthModal onClose={() => setIsAuthModalOpen(false)} />
-				)}
+				<div className="z-20">
+					{isAuthModalOpen && (
+						<Auth onClose={() => setIsAuthModalOpen(false)} />
+					)}
+				</div>
 			</ul>
 		</>
 	)

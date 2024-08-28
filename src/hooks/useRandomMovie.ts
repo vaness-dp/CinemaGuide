@@ -1,5 +1,6 @@
-import { api } from '../api/api.helpers'
 import { useQuery } from '@tanstack/react-query'
+
+import { api } from '../api/api.helpers'
 
 const fetchRandomMovie = async () => {
 	const response = await api.get('/movie/random')
@@ -12,15 +13,3 @@ export const useRandomMovie = () => {
 		queryFn: fetchRandomMovie,
 	})
 }
-
-// const fetchDataProfile = async () => {
-// 	const response = await api.get('/profile')
-// 	return response.data
-// }
-
-// export const useDataProfile = () => {
-// 	return useQuery({
-// 		queryKey: ['dataProfile'],
-// 		queryFn: fetchDataProfile,
-// 	})
-// }

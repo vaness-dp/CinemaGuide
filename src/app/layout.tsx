@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { Play } from 'next/font/google'
 import { MainProvider } from 'providers/MainProvider'
+import React from 'react'
 
 import '@/assets/styles/globals.scss'
 

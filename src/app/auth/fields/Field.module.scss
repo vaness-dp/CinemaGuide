@@ -1,0 +1,11 @@
+.field {
+	@apply mb-3;
+
+	> label {
+		@apply relative;
+
+		> svg {
+			@apply absolute top-1 left-3 fill-black/40;
+		}
+	}
+}
